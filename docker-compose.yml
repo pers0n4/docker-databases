@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+  mariadb:
+    build:
+      context: ./mariadb
+      args:
+        - TZ=Etc/UTC
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=default
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  mariadb:
+    driver: local
+
+networks:
+  backend:
+    driver: bridge
