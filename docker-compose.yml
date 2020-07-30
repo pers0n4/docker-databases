@@ -14,7 +14,7 @@ services:
         - TZ=Etc/UTC
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=default
+      - MYSQL_DATABASE=test
       - MYSQL_USER=user
       - MYSQL_PASSWORD=user
     ports:
