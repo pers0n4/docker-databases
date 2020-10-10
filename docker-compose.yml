@@ -1,12 +1,15 @@
 version: "3"
 
 services:
+  # Adminer
   adminer:
     image: adminer:latest
     ports:
       - "8080:8080"
     networks:
       - backend
+
+  # MariaDB
   mariadb:
     build:
       context: ./mariadb
@@ -25,6 +28,7 @@ services:
     networks:
       - backend
 
+  # MongoDB
   mongo:
     build: ./mongo
     environment:
@@ -38,6 +42,7 @@ services:
     networks:
       - backend
 
+  # mongo-express
   mongo-express:
     image: mongo-express
     environment:
