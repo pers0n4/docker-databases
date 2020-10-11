@@ -1,4 +1,4 @@
-FROM mariadb:latest
+FROM mariadb:10
 
 ARG TZ
 ENV TZ=${TZ:-Etc/UTC}
