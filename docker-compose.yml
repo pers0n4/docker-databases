@@ -84,12 +84,46 @@ services:
     networks: 
       - backend
 
+  # PostgreSQL
+  postgres:
+    build:
+      context: ./postgres
+    environment: 
+      - POSTGRES_PASSWORD=${DATABASE_ROOT}
+      - POSTGRES_USER=${DATABASE_ROOT}
+      - POSTGRES_DB=${DATABASE_NAME}
+    ports: 
+      - "${POSTGRES_PORT}:5432"
+    volumes: 
+      - postgres:/var/lib/postgresql/data
+    networks: 
+      - backend
+
+  # pgAdmin
+  pgadmin:
+    image: dpage/pgadmin4
+    environment: 
+      - PGADMIN_DEFAULT_EMAIL=example@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=${DATABASE_ROOT}
+    ports:
+      - "${PGADMIN_PORT}:80"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    networks: 
+      - backend
+    depends_on: 
+      - postgres
+
 volumes:
   mariadb:
     driver: local
   mongo:
     driver: local
   mssql:
+    driver: local
+  postgres:
+    driver: local
+  pgadmin:
     driver: local
 
 networks:
