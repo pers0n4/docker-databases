@@ -68,10 +68,28 @@ services:
     depends_on:
       - mongo
 
+  # Microsoft SQL Server
+  mssql:
+    build:
+      context: ./mssql
+    environment: 
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=S@password
+      - MSSQL_PID=Developer
+      - MSSQL_DATABASE=${DATABASE_NAME}
+    ports:
+      - "${MSSQL_PORT}:1433"
+    volumes:
+      - mssql:/var/opt/mssql
+    networks: 
+      - backend
+
 volumes:
   mariadb:
     driver: local
   mongo:
+    driver: local
+  mssql:
     driver: local
 
 networks:
