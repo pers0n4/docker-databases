@@ -5,7 +5,7 @@ services:
   adminer:
     image: adminer:latest
     ports:
-      - "8080:8080"
+      - "${ADMINER_PORT}:8080"
     networks:
       - backend
 
@@ -16,12 +16,12 @@ services:
       args:
         - TZ=Etc/UTC
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=default
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=user
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT}
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_USER}
     ports:
-      - "3306:3306"
+      - "${MARIADB_PORT}:3306"
     volumes:
       - mariadb:/var/lib/mysql
       - ./mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
@@ -32,11 +32,11 @@ services:
   mongo:
     build: ./mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=pass
-      - MONGO_INITDB_DATABASE=test
+      - MONGO_INITDB_ROOT_USERNAME=${DATABASE_ROOT}
+      - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_ROOT}
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
     ports:
-      - "27017:27017"
+      - "${MONGODB_PORT}:27017"
     volumes:
       - mongo:/data/db
       - mongo:/data/configdb
@@ -47,22 +47,22 @@ services:
   mongo-express:
     image: mongo-express
     environment:
-      - ME_CONFIG_BASICAUTH_USERNAME=root
-      - ME_CONFIG_BASICAUTH_PASSWORD=pass
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=pass
+      - ME_CONFIG_BASICAUTH_USERNAME=${DATABASE_ROOT}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${DATABASE_ROOT}
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${DATABASE_ROOT}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${DATABASE_ROOT}
     ports:
-      - "8081:8081"
+      - "${MONGOEXPRESS_PORT}:8081"
     networks:
       - backend
     depends_on:
       - mongo
 
-  # mongoclient (nosqlclient)
+  # Mongoclient (Nosqlclient)
   mongoclient:
     image: mongoclient/mongoclient
     ports:
-      - "3001:3000"
+      - "${MONGOCLIENT_PORT}:3000"
     networks:
       - backend
     depends_on:
