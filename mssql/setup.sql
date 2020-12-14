@@ -1,0 +1,4 @@
+CREATE DATABASE mssql;
+GO
+USE mssql;
+GO
