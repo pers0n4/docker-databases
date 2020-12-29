@@ -68,6 +68,17 @@ services:
     networks:
       - backend
 
+  # Redis
+  redis:
+    build:
+      context: ./redis
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis:/data
+    networks:
+      - backend
+
   ## NOTE: Tools
 
   # Adminer
@@ -122,6 +133,18 @@ services:
     depends_on:
       - postgres
 
+  # Redis Commander
+  redis-commander:
+    image: rediscommander/redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:${REDIS_PORT}
+    ports:
+      - "${REDISCOMMANDER_PORT}:8081"
+    networks:
+      - backend
+    depends_on:
+      - redis
+
 volumes:
   mariadb:
     driver: local
@@ -132,6 +155,8 @@ volumes:
   postgres:
     driver: local
   pgadmin:
+    driver: local
+  redis:
     driver: local
 
 networks:
