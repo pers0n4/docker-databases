@@ -147,18 +147,11 @@ services:
 
 volumes:
   mariadb:
-    driver: local
   mongo:
-    driver: local
   mssql:
-    driver: local
   postgres:
-    driver: local
   pgadmin:
-    driver: local
   redis:
-    driver: local
 
 networks:
   backend:
-    driver: bridge
