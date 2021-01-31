@@ -5,6 +5,7 @@ ENV TZ=${TZ:-Etc/UTC}
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-EXPOSE 3306
+COPY my.cnf /etc/mysql/conf.d/my.cnf
 
-CMD ["mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+EXPOSE 3306
+CMD ["mysqld"]
