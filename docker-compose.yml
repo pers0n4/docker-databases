@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-  ## NOTE: Databases
+  # SECTION: Databases
 
-  # MariaDB
+  # ANCHOR: MariaDB
   mariadb:
     build:
       context: ./mariadb
@@ -22,7 +22,7 @@ services:
     networks:
       - bridge
 
-  # MongoDB
+  # ANCHOR: MongoDB
   mongo:
     build:
       context: ./mongo
@@ -38,7 +38,7 @@ services:
     networks:
       - bridge
 
-  # PostgreSQL
+  # ANCHOR: PostgreSQL
   postgres:
     build:
       context: ./postgres
@@ -53,7 +53,7 @@ services:
     networks:
       - bridge
 
-  # Redis
+  # ANCHOR: Redis
   redis:
     build:
       context: ./redis
@@ -64,9 +64,10 @@ services:
     networks:
       - bridge
 
-  ## NOTE: Tools
+  # ^SECTION
+  # SECTION: Tools
 
-  # Adminer
+  # ANCHOR: Adminer
   adminer:
     image: adminer
     ports:
@@ -74,7 +75,7 @@ services:
     networks:
       - bridge
 
-  # mongo-express
+  # ANCHOR: mongo-express
   mongo-express:
     image: mongo-express
     environment:
@@ -89,7 +90,7 @@ services:
     depends_on:
       - mongo
 
-  # Mongoclient (Nosqlclient)
+  # ANCHOR: Mongoclient (Nosqlclient)
   mongoclient:
     image: mongoclient/mongoclient
     environment:
@@ -103,7 +104,7 @@ services:
     depends_on:
       - mongo
 
-  # pgAdmin
+  # ANCHOR: pgAdmin
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -118,7 +119,7 @@ services:
     depends_on:
       - postgres
 
-  # Redis Commander
+  # ANCHOR: Redis Commander
   redis-commander:
     image: rediscommander/redis-commander
     environment:
@@ -129,6 +130,8 @@ services:
       - bridge
     depends_on:
       - redis
+
+  # ^SECTION
 
 volumes:
   mariadb:
