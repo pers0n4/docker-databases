@@ -1,9 +1,0 @@
-FROM mcr.microsoft.com/mssql/server:2019-latest
-
-ENV ACCEPT_EULA=Y
-ENV SA_PASSWORD=$MSSQL_PASSWORD
-ENV MSSQL_PID=$MSSQL_PID
-
-VOLUME /var/opt/mssql
-
-EXPOSE 1433

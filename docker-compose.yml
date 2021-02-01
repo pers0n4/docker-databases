@@ -38,21 +38,6 @@ services:
     networks:
       - bridge
 
-  # Microsoft SQL Server
-  mssql:
-    build:
-      context: ./mssql
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=S@password
-      - MSSQL_PID=Developer
-    volumes:
-      - mssql:/var/opt/mssql
-    ports:
-      - "${MSSQL_PORT}:1433"
-    networks:
-      - bridge
-
   # PostgreSQL
   postgres:
     build:
