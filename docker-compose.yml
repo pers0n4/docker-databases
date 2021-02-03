@@ -16,7 +16,6 @@ services:
       - MYSQL_PASSWORD=${ENV_PASSWORD}
     volumes:
       - mariadb:/var/lib/mysql
-      - ./mariadb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - "${MARIADB_PORT}:3306"
     networks:
