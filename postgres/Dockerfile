@@ -1,5 +1,6 @@
 FROM postgres:13-alpine
 
-EXPOSE 5432
+COPY ./docker-entrypoint-initdb.d/ /docker-entrypoint-initdb.d/
 
+EXPOSE 5432
 CMD ["postgres"]
