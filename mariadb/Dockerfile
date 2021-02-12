@@ -9,5 +9,7 @@ COPY my.cnf /etc/mysql/conf.d/my.cnf
 
 COPY ./docker-entrypoint-initdb.d/ /docker-entrypoint-initdb.d/
 
+VOLUME /var/lib/mysql
+
 EXPOSE 3306
 CMD ["mysqld"]
