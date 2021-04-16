@@ -111,6 +111,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${ENV_PASSWORD}
     volumes:
       - pgadmin:/var/lib/pgadmin
+      - ./postgres/servers.json:/pgadmin4/servers.json
     ports:
       - "${PGADMIN_PORT}:80"
     networks:
