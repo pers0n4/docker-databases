@@ -136,9 +136,8 @@ services:
 volumes:
   mariadb:
   mongo:
-  mssql:
-  postgres:
   pgadmin:
+  postgres:
   redis:
 
 networks:
