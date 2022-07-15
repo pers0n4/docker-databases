@@ -1,9 +1,6 @@
-FROM redis:6-alpine
+FROM redis:7
 
-# COPY redis.conf /usr/local/etc/redis/redis.conf
-
-VOLUME /data
+COPY redis.conf /usr/local/etc/redis/redis.conf
 
 EXPOSE 6379
-CMD ["redis-server"]
-# CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]

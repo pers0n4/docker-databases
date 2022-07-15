@@ -1,19 +1,14 @@
-version: "3.9"
-
 services:
   # SECTION: Databases
-
   # ANCHOR: MariaDB
   mariadb:
     build:
       context: ./mariadb
-      args:
-        - TZ=Etc/UTC
     environment:
-      - MYSQL_ROOT_PASSWORD=${DOCKER_PASSWORD}
-      - MYSQL_DATABASE=${DOCKER_DATABASE}
-      - MYSQL_USER=${DOCKER_USERNAME}
-      - MYSQL_PASSWORD=${DOCKER_PASSWORD}
+      - MARIADB_ROOT_PASSWORD=${DOCKER_PASSWORD}
+      - MARIADB_DATABASE=${DOCKER_DATABASE}
+      - MARIADB_USER=${DOCKER_USERNAME}
+      - MARIADB_PASSWORD=${DOCKER_PASSWORD}
     volumes:
       - mariadb:/var/lib/mysql
     ports:
@@ -41,7 +36,6 @@ services:
       - POSTGRES_PASSWORD=${DOCKER_PASSWORD}
       - POSTGRES_USER=${DOCKER_USERNAME}
       - POSTGRES_DB=${DOCKER_DATABASE}
-      - POSTGRES_INITDB_ARGS="--encoding=UTF8"
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
@@ -55,13 +49,15 @@ services:
       - redis:/data
     ports:
       - "${REDIS_PORT}:6379"
-
   # ^SECTION
-  # SECTION: Tools
 
+  # SECTION: Tools
   # ANCHOR: Adminer
   adminer:
     image: adminer
+    environment:
+      - ADMINER_DESIGN=pepa-linha
+      - ADMINER_DEFAULT_SERVER=${ADMINER_DEFAULT_SERVER}
     ports:
       - "${ADMINER_PORT}:8080"
 
@@ -73,52 +69,18 @@ services:
       - ME_CONFIG_BASICAUTH_PASSWORD=${DOCKER_PASSWORD}
       - ME_CONFIG_MONGODB_ADMINUSERNAME=${DOCKER_USERNAME}
       - ME_CONFIG_MONGODB_ADMINPASSWORD=${DOCKER_PASSWORD}
+      - ME_CONFIG_MONGODB_PORT=${MONGODB_PORT}
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_OPTIONS_EDITORTHEME=material-palenight
     ports:
       - "${MONGOEXPRESS_PORT}:8081"
     depends_on:
-      - mongo
-
-  # ANCHOR: Mongoclient (Nosqlclient)
-  mongoclient:
-    image: mongoclient/mongoclient
-    environment:
-      - MONGOCLIENT_AUTH=true
-      - MONGOCLIENT_USERNAME=${DOCKER_USERNAME}
-      - MONGOCLIENT_PASSWORD=${DOCKER_PASSWORD}
-    ports:
-      - "${MONGOCLIENT_PORT}:3000"
-    depends_on:
-      - mongo
-
-  # ANCHOR: pgAdmin
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${DOCKER_USERNAME}@pgadmin.org
-      - PGADMIN_DEFAULT_PASSWORD=${DOCKER_PASSWORD}
-    volumes:
-      - pgadmin:/var/lib/pgadmin
-      - ./postgres/servers.json:/pgadmin4/servers.json
-    ports:
-      - "${PGADMIN_PORT}:80"
-    depends_on:
-      - postgres
-
-  # ANCHOR: Redis Commander
-  redis-commander:
-    image: rediscommander/redis-commander
-    environment:
-      - REDIS_HOSTS=local:redis:${REDIS_PORT}
-    ports:
-      - "${REDISCOMMANDER_PORT}:8081"
-    depends_on:
-      - redis
-
+      mongo:
+        condition: service_started
   # ^SECTION
 
 volumes:
   mariadb:
   mongo:
-  pgadmin:
   postgres:
   redis:
