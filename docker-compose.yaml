@@ -57,7 +57,7 @@ services:
     image: adminer
     environment:
       - ADMINER_DESIGN=pepa-linha
-      - ADMINER_DEFAULT_SERVER=${ADMINER_DEFAULT_SERVER}
+      - ADMINER_DEFAULT_SERVER=${ADMINER_DEFAULT_SERVER:-postgres}
     ports:
       - "${ADMINER_PORT}:8080"
 
