@@ -1,5 +1,7 @@
 FROM mongo:5
 
+ENV TZ=Asia/Seoul
+
 COPY docker-entrypoint-initdb.d/* /docker-entrypoint-initdb.d/
 COPY docker-healthcheck.sh /usr/local/bin/
 

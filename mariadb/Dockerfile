@@ -1,6 +1,7 @@
 FROM mariadb:10
 
-ENV MARIADB_MYSQL_LOCALHOST_USER=1
+ENV TZ=Asia/Seoul \
+    MARIADB_MYSQL_LOCALHOST_USER=1
 
 COPY my.cnf /etc/mysql/conf.d/my.cnf
 

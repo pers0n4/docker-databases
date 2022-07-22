@@ -1,5 +1,7 @@
 FROM redis:7
 
+ENV TZ=Asia/Seoul
+
 # COPY redis.conf /usr/local/etc/redis/redis.conf
 
 COPY docker-healthcheck.sh /usr/local/bin/
