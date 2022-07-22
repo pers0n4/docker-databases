@@ -1,10 +1,8 @@
 CREATE USER test WITH PASSWORD 'test';
 
 CREATE DATABASE test
-    LOCALE 'ko_KR.utf8'
+    WITH OWNER test
     ENCODING UTF8
+    LC_COLLATE 'C'
+    LC_CTYPE 'ko_KR.utf8'
     TEMPLATE template0;
-
-GRANT ALL PRIVILEGES
-    ON DATABASE test
-    TO test;
