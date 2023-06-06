@@ -1,5 +1,4 @@
 services:
-  # SECTION: Databases
   # ANCHOR: MariaDB
   mariadb:
     build:
@@ -50,35 +49,6 @@ services:
       - redis:/data
     ports:
       - "${REDIS_PORT}:6379"
-  # ^SECTION
-
-  # SECTION: Tools
-  # ANCHOR: Adminer
-  adminer:
-    image: adminer
-    environment:
-      - ADMINER_DESIGN=pepa-linha
-      - ADMINER_DEFAULT_SERVER=${ADMINER_DEFAULT_SERVER:-mariadb}
-    ports:
-      - "${ADMINER_PORT}:8080"
-
-  # ANCHOR: mongo-express
-  mongo-express:
-    image: mongo-express
-    environment:
-      - ME_CONFIG_BASICAUTH_USERNAME=${DOCKER_USERNAME}
-      - ME_CONFIG_BASICAUTH_PASSWORD=${DOCKER_PASSWORD}
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${DOCKER_USERNAME}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${DOCKER_PASSWORD}
-      - ME_CONFIG_MONGODB_PORT=${MONGODB_PORT}
-      - ME_CONFIG_MONGODB_SERVER=mongo
-      - ME_CONFIG_OPTIONS_EDITORTHEME=material-palenight
-    ports:
-      - "${MONGOEXPRESS_PORT}:8081"
-    depends_on:
-      mongo:
-        condition: service_started
-  # ^SECTION
 
 volumes:
   mariadb:
