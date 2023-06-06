@@ -3,6 +3,7 @@ services:
   mariadb:
     build:
       context: ./mariadb
+    container_name: mariadb
     environment:
       - MARIADB_ROOT_PASSWORD=${DOCKER_PASSWORD}
       - MARIADB_DATABASE=${DOCKER_DATABASE}
@@ -17,6 +18,7 @@ services:
   mongo:
     build:
       context: ./mongo
+    container_name: mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${DOCKER_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${DOCKER_PASSWORD}
@@ -31,6 +33,7 @@ services:
   postgres:
     build:
       context: ./postgres
+    container_name: postgres
     environment:
       - POSTGRES_PASSWORD=${DOCKER_PASSWORD}
       - POSTGRES_USER=${DOCKER_USERNAME}
@@ -45,6 +48,7 @@ services:
   redis:
     build:
       context: ./redis
+    container_name: redis
     volumes:
       - redis:/data
     ports:
