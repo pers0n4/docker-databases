@@ -25,7 +25,7 @@ services:
       - MONGO_INITDB_DATABASE=${DOCKER_DATABASE}
     volumes:
       - mongo:/data/db
-      - mongo:/data/configdb
+      - mongoconfig:/data/configdb
     ports:
       - "${MONGODB_PORT}:27017"
 
@@ -57,5 +57,6 @@ services:
 volumes:
   mariadb:
   mongo:
+  mongoconfig:
   postgres:
   redis:
