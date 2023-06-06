@@ -1,4 +1,4 @@
-FROM mongo:5
+FROM mongo:6
 
 ENV TZ=Asia/Seoul
 
